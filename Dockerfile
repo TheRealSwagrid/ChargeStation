@@ -25,9 +25,9 @@ COPY protocols /etc
 COPY ChargeStation.py /ros_ws/src/chargestationhandler/src
 COPY AbstractVirtualCapability.py ros_ws/src/chargestationhandler/src
 
-RUN  vi +':wq ++ff=unix' /ros_ws/src/robothandler/src/PlacerRobot.py
-RUN  vi +':wq ++ff=unix' /ros_ws/src/robothandler/src/AbstractVirtualCapability.py
-RUN  vi +':wq ++ff=unix' /ros_ws/src/robothandler/src/robot_handler.py
+RUN  vi +':wq ++ff=unix' /ros_ws/src/chargestationhandler/src/ChargeStation.py
+RUN  vi +':wq ++ff=unix' /ros_ws/src/chargestationhandler/src/AbstractVirtualCapability.py
+RUN  vi +':wq ++ff=unix' /ros_ws/src/chargestationhandler/src/chargestationhandler.py
 
 # Build Ros-Pkg and build
 RUN cd /ros_ws && source /opt/ros/noetic/setup.bash && catkin_make
