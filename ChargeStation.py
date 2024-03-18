@@ -22,7 +22,7 @@ class ChargeStation(AbstractVirtualCapability):
         while current_charge <= 100.:
             to_charge_dev.invoke_sync("SetBatteryChargeLevel", {"BatteryChargeLevel": current_charge})
             current_charge += random.uniform(0.5, 2.0)
-            sleep(.2)
+            sleep(.025)
         return {}
 
     def loop(self):
