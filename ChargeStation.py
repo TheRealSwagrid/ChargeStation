@@ -1,8 +1,11 @@
+import random
 import signal
 import sys
 from time import sleep
 
-from AbstractVirtualCapability import AbstractVirtualCapability, VirtualCapabilityServer, formatPrint
+from AbstractVirtualCapability import AbstractVirtualCapability, VirtualCapabilityServer, formatPrint, \
+    SubDeviceRepresentation
+
 
 class ChargeStation(AbstractVirtualCapability):
     def __init__(self, server: VirtualCapabilityServer):
@@ -12,6 +15,15 @@ class ChargeStation(AbstractVirtualCapability):
 
     def GetPosition(self, params: dict):
         return {"Position3D": self.functionality["get_pos"]()}
+
+    def ChargeDevice(self, params: dict):
+        to_charge_dev = SubDeviceRepresentation(params["Device"], self, None)
+        current_charge = to_charge_dev.invoke_sync("GetBatteryChargeLevel", {})
+        while current_charge <= 100.:
+            to_charge_dev.invoke_sync("SetBatteryChargeLevel", {"BatteryChargeLevel": current_charge})
+            current_charge += random.uniform(0.5, 2.0)
+            sleep(1)
+        return {}
 
     def loop(self):
         sleep(.0001)
