@@ -18,7 +18,7 @@ class ChargeStation(AbstractVirtualCapability):
 
     def ChargeDevice(self, params: dict):
         to_charge_dev = SubDeviceRepresentation(params["Device"], self, None)
-        current_charge = to_charge_dev.invoke_sync("GetBatteryChargeLevel", {})
+        current_charge = to_charge_dev.invoke_sync("GetBatteryChargeLevel", {})["BatteryChargeLevel"]
         while current_charge <= 100.:
             to_charge_dev.invoke_sync("SetBatteryChargeLevel", {"BatteryChargeLevel": current_charge})
             current_charge += random.uniform(0.5, 2.0)
