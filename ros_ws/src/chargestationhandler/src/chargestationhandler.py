@@ -21,11 +21,11 @@ if __name__ == '__main__':
     pub = rospy.Publisher(f"/robot", Marker, queue_size=1)
     name = f"chargestation@{int(rospy.get_param('~semantix_port'))}"
 
-    position = [10., 2., 0.]
+    position = [10., 2., 0.0]
     rotation = [0., 0., 0., 1.]
     scale = 1.
 
-    station.functionality["get_pos"] = lambda: position
+    station.functionality["get_pos"] = lambda: [position[0], position[1], position[2]+.5]
 
     while not rospy.is_shutdown():
         marker = Marker()
